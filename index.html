@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Skincare Routine</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F2EE;
+    --surface: #FDFBF8;
+    --surface2: #F9F6F1;
+    --jade: #7BAF96;
+    --jade-light: #C4DDD4;
+    --jade-deep: #4A8A72;
+    --jade-bg: #EBF4EF;
+    --blush: #E8C8C0;
+    --blush-light: #F7EDEA;
+    --blush-deep: #B87870;
+    --gold: #C8A96A;
+    --gold-light: #F0E4C8;
+    --ink: #1E2820;
+    --ink-mid: #4A5448;
+    --ink-light: #8A9688;
+    --border: rgba(30,40,32,0.09);
+    --border-strong: rgba(30,40,32,0.16);
+    --am-bg: #FBF5EC;
+    --am-border: #E8D0A8;
+    --am-accent: #B8882A;
+    --pm-bg: #EDF2F0;
+    --pm-border: #AECCC0;
+    --pm-accent: #3A7A62;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, var(--jade-bg) 0%, #F0F7F4 50%, var(--blush-light) 100%);
+    padding: 72px 52px 52px;
+    border-bottom: 1px solid var(--jade-light);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(123,175,150,0.2) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: 5%;
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,169,106,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--jade-deep);
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 58px;
+    font-weight: 400;
+    line-height: 1.05;
+    color: var(--ink);
+    margin-bottom: 18px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--jade-deep);
+  }
+  .hero-sub {
+    font-size: 14px;
+    color: var(--ink-mid);
+    font-weight: 300;
+    max-width: 420px;
+    line-height: 1.75;
+    margin-bottom: 36px;
+  }
+  .hero-tags {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .hero-tag {
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--ink-mid);
+  }
+  .hero-tag span { color: var(--jade-deep); font-weight: 500; }
+
+  /* NAV */
+  .nav {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 52px;
+    display: flex;
+    gap: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    overflow-x: auto;
+  }
+  .nav-btn {
+    padding: 17px 22px;
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--ink-light);
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+  }
+  .nav-btn:hover { color: var(--ink); }
+  .nav-btn.active { color: var(--jade-deep); border-bottom-color: var(--jade-deep); font-weight: 500; }
+
+  /* CONTENT */
+  .content { max-width: 960px; margin: 0 auto; padding: 52px; }
+  .section { display: none; animation: fadeUp 0.3s ease; }
+  .section.active { display: block; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .section-sub {
+    font-size: 13px;
+    color: var(--ink-light);
+    margin-bottom: 32px;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* CALLOUT */
+  .callout {
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-size: 13px;
+    line-height: 1.65;
+    margin-bottom: 28px;
+    border-left: 3px solid;
+  }
+  .callout-jade { background: var(--jade-bg); border-color: var(--jade-deep); color: #2A5A44; border: 1px solid var(--jade-light); border-left: 3px solid var(--jade-deep); }
+  .callout-gold { background: var(--gold-light); border-color: var(--gold); color: #6A4A10; border: 1px solid #E0CC98; border-left: 3px solid var(--gold); }
+  .callout strong { font-weight: 500; }
+
+  /* STEPS */
+  .steps { display: flex; flex-direction: column; gap: 10px; }
+  .step {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 24px;
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 18px;
+    align-items: start;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .step:hover { box-shadow: 0 6px 24px rgba(30,40,32,0.07); transform: translateY(-1px); }
+
+  .badge {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 400;
+    flex-shrink: 0;
+  }
+  .badge-am { background: var(--am-bg); color: var(--am-accent); border: 1px solid var(--am-border); }
+  .badge-pm { background: var(--pm-bg); color: var(--pm-accent); border: 1px solid var(--pm-border); }
+
+  .step-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 5px;
+  }
+  .step-product {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .step-how {
+    font-size: 13px;
+    color: var(--ink-mid);
+    line-height: 1.7;
+    font-weight: 300;
+    margin-bottom: 10px;
+  }
+  .step-how strong { font-weight: 500; color: var(--ink); }
+
+  .pill {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 11px;
+    border-radius: 999px;
+    letter-spacing: 0.04em;
+  }
+  .pill-daily { background: #E8F3EC; color: #2E6E48; border: 1px solid #AADCBC; }
+  .pill-nightly { background: var(--pm-bg); color: var(--pm-accent); border: 1px solid var(--pm-border); }
+  .pill-weekly { background: var(--gold-light); color: #7A5010; border: 1px solid #E0CC98; }
+  .pill-optional { background: var(--surface2); color: var(--ink-light); border: 1px solid var(--border-strong); }
+
+  /* PRODUCT TABLE */
+  .prod-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--border-strong);
+  }
+  .prod-table thead th {
+    background: var(--jade-bg);
+    padding: 12px 18px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-mid);
+    border-bottom: 1px solid var(--jade-light);
+  }
+  .prod-table td {
+    padding: 14px 18px;
+    font-size: 13px;
+    color: var(--ink-mid);
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    vertical-align: top;
+    line-height: 1.6;
+    font-weight: 300;
+  }
+  .prod-table tr:last-child td { border-bottom: none; }
+  .prod-table tr:hover td { background: var(--surface2); }
+  .prod-name { font-weight: 500; color: var(--ink); font-size: 13px; margin-bottom: 3px; }
+  .prod-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+  }
+  .tag-jade { background: var(--jade-bg); color: var(--jade-deep); }
+  .tag-boj { background: #EEF5EC; color: #3A6E30; }
+  .tag-med { background: #FBE8F0; color: #9A3060; }
+  .tag-bwy { background: #EEF0F8; color: #4050A0; }
+  .tag-tool { background: var(--gold-light); color: #7A5010; }
+  .ingr { font-size: 12px; color: var(--ink-light); font-style: italic; }
+
+  /* TIPS */
+  .tips-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 28px; }
+  @media(max-width:640px) { .tips-grid { grid-template-columns: 1fr; } }
+  .tip-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 24px;
+  }
+  .tip-icon { font-size: 24px; margin-bottom: 12px; }
+  .tip-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 19px;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 9px;
+  }
+  .tip-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; font-weight: 300; }
+  .tip-body strong { font-weight: 500; color: var(--ink); }
+
+  .layer-box {
+    background: var(--jade-bg);
+    border: 1px solid var(--jade-light);
+    border-radius: 14px;
+    padding: 24px 28px;
+    margin-top: 8px;
+  }
+  .layer-box h3 {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--jade-deep);
+    margin-bottom: 16px;
+  }
+  .chain { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+  .chain-step {
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: 7px;
+    padding: 7px 13px;
+    font-size: 12px;
+    color: var(--ink);
+  }
+  .chain-arrow { color: var(--jade-deep); font-size: 14px; }
+  .chain-note { font-size: 11px; color: var(--ink-light); margin-top: 12px; font-style: italic; font-weight: 300; }
+
+  /* GUA SHA HIGHLIGHT */
+  .gua-card {
+    background: linear-gradient(135deg, var(--gold-light) 0%, #FAF3E4 100%);
+    border: 1px solid #E0CC98;
+    border-radius: 14px;
+    padding: 22px 26px;
+    margin-top: 12px;
+  }
+  .gua-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .gua-title em { font-style: italic; color: #8A6020; }
+  .gua-body { font-size: 13px; color: var(--ink-mid); line-height: 1.75; font-weight: 300; }
+  .gua-body strong { font-weight: 500; color: var(--ink); }
+  .gua-steps { margin-top: 14px; display: flex; flex-direction: column; gap: 6px; }
+  .gua-step {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 13px;
+    color: var(--ink-mid);
+    font-weight: 300;
+    line-height: 1.6;
+  }
+  .gua-num {
+    min-width: 22px; height: 22px;
+    background: var(--surface);
+    border: 1px solid #D0B870;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+    font-weight: 500;
+    color: #8A6020;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  footer {
+    text-align: center;
+    padding: 40px 48px;
+    font-size: 12px;
+    color: var(--ink-light);
+    border-top: 1px solid var(--border);
+    background: var(--jade-bg);
+    font-style: italic;
+    font-weight: 300;
+  }
+
+  @media(max-width:700px) {
+    .hero { padding: 40px 24px 32px; }
+    .hero h1 { font-size: 38px; }
+    .nav { padding: 0 12px; }
+    .content { padding: 28px 20px; }
+    .step { grid-template-columns: 38px 1fr; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-eyebrow">Personal skincare guide</div>
+  <h1>My Skincare<br><em>Routine</em></h1>
+  <p class="hero-sub">A simple, effective morning and evening routine built around your 6 products — tailored for combination skin with a focus on anti-ageing.</p>
+  <div class="hero-tags">
+    <div class="hero-tag">🧴 <span>6 products</span></div>
+    <div class="hero-tag">✨ <span>Combination skin</span></div>
+    <div class="hero-tag">🌿 <span>Anti-ageing focus</span></div>
+    <div class="hero-tag">💆 <span>Gua sha ritual</span></div>
+  </div>
+</div>
+
+<nav class="nav">
+  <button class="nav-btn active" onclick="show('morning', this)">☀️ Morning</button>
+  <button class="nav-btn" onclick="show('night', this)">🌙 Night</button>
+  <button class="nav-btn" onclick="show('guasha', this)">🪨 Gua Sha</button>
+  <button class="nav-btn" onclick="show('products', this)">📋 Products</button>
+  <button class="nav-btn" onclick="show('tips', this)">💡 Tips</button>
+</nav>
+
+<main class="content">
+
+  <!-- MORNING -->
+  <div id="morning" class="section active">
+    <h2 class="section-title">Morning Routine</h2>
+    <p class="section-sub">Hydrate, protect and prime. Keep it light — your skin will thank you.</p>
+
+    <div class="callout callout-gold"><strong>☀️ You'll want to add an SPF to your collection.</strong> You're using retinal (in the eye serum) which increases sun sensitivity. A broad spectrum SPF 50+ as your final morning step is strongly recommended.</div>
+
+    <div class="steps">
+
+      <div class="step">
+        <div class="badge badge-am">1</div>
+        <div>
+          <div class="step-label">Cleanse</div>
+          <div class="step-product">Beauty of Joseon – Ginseng Cleansing Oil</div>
+          <div class="step-how">In the morning, just a small amount is enough — no need to double cleanse. Apply to dry skin, massage gently for 20–30 seconds, emulsify with water, then rinse. Your skin's natural oils from overnight don't need heavy cleansing.</div>
+          <span class="pill pill-daily">Every morning</span>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="badge badge-am">2</div>
+        <div>
+          <div class="step-label">Hydrating Serum</div>
+          <div class="step-product">Boring Without You – Make Me Wet™ Aquaporin Hydrating Milk Serum</div>
+          <div class="step-how">Apply 2–3 drops to slightly damp skin after cleansing. Press gently into skin — don't rub. The aquaporin technology helps your skin hold onto hydration throughout the day. Milk serums are lightweight and absorb beautifully under SPF.</div>
+          <span class="pill pill-daily">Every morning</span>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="badge badge-am">3</div>
+        <div>
+          <div class="step-label">Treatment Serum</div>
+          <div class="step-product">Medicube – Collagen Glow Booster Serum</div>
+          <div class="step-how">Apply 2–3 drops after your hydrating serum and press in. This boosts firmness and gives a healthy glow — perfect as a morning layer before SPF. Great for combination skin as it hydrates without feeling heavy.</div>
+          <span class="pill pill-daily">Every morning</span>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="badge badge-am">4</div>
+        <div>
+          <div class="step-label">Eye Care</div>
+          <div class="step-product">Beauty of Joseon – Revive Eye Serum (Ginseng + Retinal)</div>
+          <div class="step-how">Gently tap a small amount around the orbital bone using your ring finger. The ginseng brightens and firms; retinal targets fine lines over time. Use sparingly — a little goes a very long way around the delicate eye area.</div>
+          <span class="pill pill-daily">Every morning</span>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="badge badge-am">5</div>
+        <div>
+          <div class="step-label">Soothe &amp; Prep</div>
+          <div class="step-product">SKIN1004 – Madagascar Centella Ampoule</div>
+          <div class="step-how">A few drops patted gently into skin. On combination skin, the Centella ampoule calms any reactive or oily zones while strengthening the barrier — a great base before SPF or makeup. Can be mixed into your moisturiser if you have one.</div>
+          <span class="pill pill-daily">Every morning</span>
+        </div>
+      </div>
+
+      <div class="step" style="border-color: var(--am-border); background: #FFFBF4;">
+        <div class="badge badge-am">6</div>
+        <div>
+          <div class="step-label" style="color:var(--am-accent);">SPF — Recommended addition</div>
+          <div class="step-product">Add a broad spectrum SPF 50+ here</div>
+          <div class="step-how">Apply as the very last step before makeup. Approx. 1 teaspoon for face and neck. With retinal in your eye serum, this step is genuinely important. Some great options: Ultra Violet Queen Screen SPF 50+, Skin Aqua UV Super Moisture Gel, or La Roche-Posay Anthelios.</div>
+          <span class="pill pill-daily">Every single morning</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- NIGHT -->
+  <div id="night" class="section">
+    <h2 class="section-title">Night Routine</h2>
+    <p class="section-sub">Double cleanse, repair and nourish. Your skin does its best work while you sleep.</p>
+
+    <div class="callout callout-jade"><strong>🌿 Keep it consistent.</strong> With 6 products, your routine is simple and powerful. You don't need to rotate much — just be consistent every night and your skin will show results within 4–6 weeks.</div>
+
+    <div class="steps">
+
+      <div class="step">
+        <div class="badge badge-pm">1</div>
+        <div>
+          <div class="step-label">First Cleanse — Oil</div>
+          <div class="step-product">Beauty of Joseon – Ginseng Cleansing Oil</div>
+          <div class="step-how">Apply to completely dry skin and massage to dissolve SPF, sunscreen, makeup and pollution. Work in circular motions for 60 seconds, then emulsify with a little water until it turns milky, and rinse. This step is essential if you wore SPF during the day.</div>
+          <span class="pill pill-nightly">Every evening</span>
+        </div>
+      </div>
+
+      <div class="callout callout-gold" style="margin: 10px 0;"><strong>💡 Tip:</strong> You'll want to add a gentle water-based second cleanser to your collection for a proper double cleanse — something like the Beauty of Joseon Green Plum Refreshing Cleanser or a gentle foaming cleanser. Until then, rinse the oil cleanse thoroughly with warm water.</div>
+
+      <div class="step">
+        <div class="badge badge-pm">2</div>
+        <div>
+          <div class="step-label">Soothe &amp; Tone</div>
+          <div class="step-product">SKIN1004 – Madagascar Centella Ampoule</div>
+          <div class="step-how">Apply generously to clean, slightly damp skin — this is your toner and soothing layer in one. Pat gently all over face and neck. The Centella asiatica calms inflammation, repairs the skin barrier and preps skin for the serums to follow. Excellent for combination skin.</div>
+          <span class="pill pill-nightly">Every night</span>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="badge badge-pm">3</div>
+        <div>
+          <div class="step-label">Hydrating Serum</div>
+          <div class="step-product">Boring Without You – Make Me Wet™ Aquaporin Hydrating Milk Serum</div>
+          <div class="step-how">Apply 2–3 drops and press into skin. Overnight, the aquaporin technology helps maintain deep hydration levels — waking up to plump, balanced skin. Particularly good for the drier zones on combination skin.</div>
+          <span class="pill pill-nightly">Every night</span>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="badge badge-pm">4</div>
+        <div>
+          <div class="step-label">Treatment Serum</div>
+          <div class="step-product">Medicube – Collagen Glow Booster Serum</div>
+          <div class="step-how">Apply after your hydrating serum and press in. Overnight, collagen-boosting ingredients work to improve firmness and elasticity. Consistent nightly use is where you'll really see anti-ageing results build over time.</div>
+          <span class="pill pill-nightly">Every night</span>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="badge badge-pm">5</div>
+        <div>
+          <div class="step-label">Eye Care</div>
+          <div class="step-product">Beauty of Joseon – Revive Eye Serum (Ginseng + Retinal)</div>
+          <div class="step-how">Gently tap around the orbital bone with your ring finger. Night is when retinal works best — it accelerates cell turnover and targets fine lines while you sleep. Use a small amount and avoid getting too close to the lash line.</div>
+          <span class="pill pill-nightly">Every night</span>
+        </div>
+      </div>
+
+      <div class="step" style="border-color: var(--jade-light); background: var(--jade-bg);">
+        <div class="badge badge-pm">6</div>
+        <div>
+          <div class="step-label" style="color:var(--jade-deep);">Optional — Gua Sha Ritual</div>
+          <div class="step-product">Jade Gua Sha Stone</div>
+          <div class="step-how">After your serums, apply a small amount of the Make Me Wet serum or collagen serum as a slip agent. Use the gua sha to massage your face — this is the perfect time for your ritual. See the Gua Sha tab for the full technique guide.</div>
+          <span class="pill pill-weekly">2–3× per week or as desired</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- GUA SHA -->
+  <div id="guasha" class="section">
+    <h2 class="section-title">Gua Sha Ritual</h2>
+    <p class="section-sub">Your jade gua sha is one of the most valuable tools in your routine. Used correctly, it's a genuine anti-ageing treatment.</p>
+
+    <div class="callout callout-jade">
+      <strong>🌿 What gua sha does for you:</strong> Stimulates lymphatic drainage to reduce puffiness, increases circulation for a natural glow, lifts and sculpts facial contours over time, reduces tension in jaw and brow muscles, and helps your serums absorb more deeply.
+    </div>
+
+    <div class="gua-card">
+      <div class="gua-title">Step-by-step <em>technique guide</em></div>
+      <div class="gua-body">
+        <strong>When:</strong> PM routine, after applying your serums (the serum acts as slip). Store your jade stone in the fridge for an extra depuffing effect — especially beautiful in the morning for 5 minutes if you have time.<br><br>
+        <strong>Pressure:</strong> Light to medium — you should feel gentle resistance, not pain. Never drag on dry skin.
+      </div>
+      <div class="gua-steps">
+        <div class="gua-step"><div class="gua-num">1</div><div><strong>Décolletage first</strong> — always start here to open lymph drainage pathways. Use the flat side, sweep from chest up toward collarbone, 3 passes each side.</div></div>
+        <div class="gua-step"><div class="gua-num">2</div><div><strong>Neck</strong> — sweep upward from collarbone to jawline along the sides of the neck. 3–5 slow strokes each side.</div></div>
+        <div class="gua-step"><div class="gua-num">3</div><div><strong>Jawline</strong> — use the curved notch of the stone. Start at chin, sweep along jaw toward earlobe. 3–5 strokes each side. Hold skin taut with other hand.</div></div>
+        <div class="gua-step"><div class="gua-num">4</div><div><strong>Cheeks</strong> — flat side of stone. Sweep from the nose outward toward the ear. 3–5 strokes. Great for lifting and sculpting over time.</div></div>
+        <div class="gua-step"><div class="gua-num">5</div><div><strong>Under eyes</strong> — use the small curved edge very gently. Sweep outward from inner corner toward temple. 2–3 strokes. The jade's coolness helps with puffiness here.</div></div>
+        <div class="gua-step"><div class="gua-num">6</div><div><strong>Forehead</strong> — sweep upward from brow toward hairline, then outward toward temples. 3–5 strokes. Relieves tension and prevents lines from deepening.</div></div>
+        <div class="gua-step"><div class="gua-num">7</div><div><strong>Finish at temples</strong> — use circular motion to release. Then sweep down the neck again to flush lymph toward collarbone. Always end with downward neck strokes.</div></div>
+      </div>
+    </div>
+
+    <div style="margin-top: 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px 24px;">
+      <div class="step-label" style="margin-bottom: 10px;">Care for your jade stone</div>
+      <div class="step-how">Rinse with warm water and mild soap after every use. Pat dry. Store away from direct sunlight. Pop it in the fridge 10–15 min before use for an extra cooling, depuffing effect — especially wonderful after a long day.</div>
+    </div>
+  </div>
+
+  <!-- PRODUCTS -->
+  <div id="products" class="section">
+    <h2 class="section-title">Product Reference</h2>
+    <p class="section-sub">Everything in your collection — what it does, how it helps your combination, anti-ageing skin goals.</p>
+
+    <table class="prod-table">
+      <thead>
+        <tr><th style="width:240px">Product</th><th>What it does</th><th style="width:180px">Key ingredients</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="prod-tag tag-bwy">Boring Without You</span><div class="prod-name">Make Me Wet™ Aquaporin Hydrating Milk Serum</div></td>
+          <td>Deeply hydrates using aquaporin technology — proteins that create water channels in skin cells for superior, lasting hydration. Lightweight milk texture is ideal for combination skin and layering.</td>
+          <td class="ingr">Aquaporin activators, niacinamide, hyaluronic acid</td>
+        </tr>
+        <tr>
+          <td><span class="prod-tag tag-jade">Skin 1004</span><div class="prod-name">Madagascar Centella Ampoule</div></td>
+          <td>Soothing, redness-calming ampoule — repairs the skin barrier, reduces inflammation, and calms reactive or sensitised skin. A powerhouse for combination skin used as both toner and treatment.</td>
+          <td class="ingr">Centella asiatica (100%), madecassoside, asiaticoside</td>
+        </tr>
+        <tr>
+          <td><span class="prod-tag tag-boj">Beauty of Joseon</span><div class="prod-name">Revive Eye Serum (Ginseng + Retinal)</div></td>
+          <td>Anti-ageing eye serum targeting fine lines, puffiness and dark circles. Contains retinal — an aldehyde form of vitamin A that is significantly more potent than retinol, converting faster to retinoic acid in skin.</td>
+          <td class="ingr">Ginseng root extract, retinal, peptides</td>
+        </tr>
+        <tr>
+          <td><span class="prod-tag tag-boj">Beauty of Joseon</span><div class="prod-name">Ginseng Cleansing Oil</div></td>
+          <td>Oil-based first cleanser that melts away SPF, makeup and daily pollutants without stripping the skin barrier. Ginseng provides antioxidant benefits while cleansing. Suitable for all skin types including combination.</td>
+          <td class="ingr">Ginseng root extract, sunflower seed oil</td>
+        </tr>
+        <tr>
+          <td><span class="prod-tag tag-med">Medicube</span><div class="prod-name">Collagen Glow Booster Serum</div></td>
+          <td>Collagen-boosting serum that improves skin firmness, elasticity and radiance. Targets the visible signs of ageing with a lightweight formula suitable for combination skin. Gives a healthy, lit-from-within glow with continued use.</td>
+          <td class="ingr">Collagen complex, peptides, niacinamide</td>
+        </tr>
+        <tr>
+          <td><span class="prod-tag tag-tool">Tool</span><div class="prod-name">GuaSha Jade Stone</div></td>
+          <td>Traditional facial massage tool. Stimulates lymphatic drainage, improves circulation, lifts and sculpts contours over time. The jade stone's natural coolness helps reduce puffiness. A genuine anti-ageing tool when used consistently.</td>
+          <td class="ingr">Natural jade stone</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top: 24px;" class="callout callout-gold">
+      <strong>🛍️ Suggested additions for a complete routine:</strong> A gentle water-based second cleanser (e.g. Beauty of Joseon Green Plum Cleanser), a broad spectrum SPF 50+ for mornings, and a moisturiser or sleeping mask for nighttime barrier support (e.g. Laneige Water Sleeping Mask).
+    </div>
+  </div>
+
+  <!-- TIPS -->
+  <div id="tips" class="section">
+    <h2 class="section-title">Tips &amp; Key Rules</h2>
+    <p class="section-sub">Getting the most from a simple, powerful routine.</p>
+
+    <div class="tips-grid">
+      <div class="tip-card">
+        <div class="tip-icon">☀️</div>
+        <div class="tip-title">Add SPF — it's urgent</div>
+        <div class="tip-body">Your eye serum contains <strong>retinal</strong>, a potent retinoid. Without SPF, daytime retinal exposure can increase photosensitivity and worsen the exact concerns — pigmentation and ageing — you're trying to treat. SPF 50+ every morning is non-negotiable with retinoids in your routine.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">💧</div>
+        <div class="tip-title">Apply serums to damp skin</div>
+        <div class="tip-body">The Make Me Wet serum and Centella ampoule both perform better on slightly damp skin. After cleansing, don't wait too long — apply while there's still a little moisture left. This helps aquaporin and hydrating actives draw moisture in rather than out.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">🪨</div>
+        <div class="tip-title">Gua sha consistency is key</div>
+        <div class="tip-body">You won't see dramatic results from occasional use. Aim for <strong>3–4 times per week</strong> consistently for 4–6 weeks and you'll notice real lifting, better circulation and reduced puffiness. Store in the fridge for the best experience.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">🌿</div>
+        <div class="tip-title">Centella is your skin's best friend</div>
+        <div class="tip-body">The Skin 1004 Centella Ampoule can be used generously — treat it like a toner in the evening. On combination skin, it balances oily zones while nourishing dry patches. It's also the perfect product to reach for if skin ever feels irritated or reactive.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">✨</div>
+        <div class="tip-title">Your routine is already anti-ageing</div>
+        <div class="tip-body">Retinal (eye serum), collagen (Medicube), peptides, aquaporin hydration, gua sha lifting, and centella barrier repair — every product in your collection actively targets ageing. You don't need more products; you need <strong>consistent daily use</strong>.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">✈️</div>
+        <div class="tip-title">Travel simplified routine</div>
+        <div class="tip-body"><strong>AM:</strong> Cleansing oil → Centella ampoule → Make Me Wet serum → Eye serum → SPF<br><br><strong>PM:</strong> Cleansing oil → Centella ampoule → Make Me Wet serum → Collagen serum → Eye serum</div>
+      </div>
+    </div>
+
+    <div class="layer-box">
+      <h3>Layering order — always follow this</h3>
+      <div class="chain">
+        <div class="chain-step">Cleanser</div><div class="chain-arrow">→</div>
+        <div class="chain-step">Centella (tone)</div><div class="chain-arrow">→</div>
+        <div class="chain-step">Make Me Wet (hydrate)</div><div class="chain-arrow">→</div>
+        <div class="chain-step">Collagen Serum</div><div class="chain-arrow">→</div>
+        <div class="chain-step">Eye Serum</div><div class="chain-arrow">→</div>
+        <div class="chain-step">Gua Sha 🪨 (PM)</div><div class="chain-arrow">→</div>
+        <div class="chain-step" style="border-color:var(--am-border); background:#FFFBF4; color:var(--am-accent); font-weight:500;">SPF ☀️ AM only</div>
+      </div>
+      <div class="chain-note">Thinnest to thickest texture. Water-based before oil-based. Lightest actives first.</div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  Updated May 2026 &nbsp;·&nbsp; 6 products &nbsp;·&nbsp; Combination skin · Anti-ageing focus
+</footer>
+
+<script>
+  function show(id, btn) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
